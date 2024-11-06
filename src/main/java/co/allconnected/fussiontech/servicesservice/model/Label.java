@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -17,4 +20,11 @@ public class Label {
     @Column(name = "label", nullable = false, length = 45)
     private String label;
 
+    @ManyToMany
+    @JoinTable(
+            name = "service_has_label",
+            joinColumns = @JoinColumn(name = "label_id_label"),
+            inverseJoinColumns = @JoinColumn(name = "service_id_service")
+    )
+    private Set<Service> serviceIdService = new LinkedHashSet<>();
 }
